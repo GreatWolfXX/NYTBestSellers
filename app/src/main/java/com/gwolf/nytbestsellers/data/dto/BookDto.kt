@@ -12,4 +12,5 @@ data class BookDto(
     @SerialName("book_image") val bookImage: String,
     val rank: Int,
     @SerialName("amazon_product_url") val amazonProductUrl: String,
+    @SerialName("primary_isbn13") val primaryIsbn13: String,
 )
