@@ -2,6 +2,7 @@ package com.gwolf.nytbestsellers.data.repository
 
 import com.gwolf.nytbestsellers.data.repository.store.NYTBestSellersLocalStore
 import com.gwolf.nytbestsellers.data.repository.store.NYTBestSellersRestStore
+import com.gwolf.nytbestsellers.data.toDbEntity
 import com.gwolf.nytbestsellers.domain.entity.BookEntity
 import com.gwolf.nytbestsellers.domain.entity.ListEntity
 import com.gwolf.nytbestsellers.domain.entity.ResultEntity
@@ -15,21 +16,22 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
     private val localStore: NYTBestSellersLocalStore
 ) : NYTBestSellersRepository {
 
-    override fun getResult(): Flow<ResultEntity> = flow {
+    override fun getResult(): Flow<ResultEntity?> = flow {
         val localResult = localStore.getResult()
 
         if(localResult != null) {
             emit(localResult)
         }
 
-        val restResult = restStore.getOverview().result
+        val restResult = restStore.getOverview()
         val restLists = restResult.lists
-        val restBooks = restLists.flatMap { it.books }
-        localStore.insertResult(restResult)
-        localStore.insertLists(restLists)
-        localStore.insertBooks(restBooks)
+        val lists = restLists.map { it.toDbEntity(restResult.bestsellersDate) }
+        val books = restLists.flatMap { list -> list.books.map { it.toDbEntity(list.listId) } }
+        localStore.insertResult(restResult.toDbEntity())
+        localStore.insertLists(lists)
+        localStore.insertBooks(books)
 
-        emit(localResult)
+        emit(localStore.getResult())
     }
 
     override fun getListsByResultBestsellersDate(resultBestsellersDate: String)
@@ -41,7 +43,12 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
         emit(localStore.getBooksByListId(listId))
     }
 
-    override fun getBookByIsbn(isbn: String): Flow<BookEntity> = flow {
+    override fun getBookByIsbn(isbn: String): Flow<BookEntity?> = flow {
         emit(localStore.getBookByIsbn(isbn))
     }
+
+    override fun clearCachedData(): Flow<Unit> = flow {
+        localStore.clearAll()
+    }
+
 }

@@ -9,30 +9,32 @@ import com.gwolf.nytbestsellers.data.toDomain
 import com.gwolf.nytbestsellers.domain.entity.BookEntity
 import com.gwolf.nytbestsellers.domain.entity.ListEntity
 import com.gwolf.nytbestsellers.domain.entity.ResultEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NYTBestSellersLocalStore @Inject constructor(
-    private val database: NYTBestSellersDatabase
+    database: NYTBestSellersDatabase
 ) {
 
     private val dao: NYTBestSellersDao = database.getNYTBestSellersDao()
 
-    suspend fun getResult(): ResultEntity? = dao.selectResult()?.toDomain()
+    suspend fun getResult(): ResultEntity? = withContext(Dispatchers.IO) { dao.selectResult()?.toDomain() }
 
     suspend fun getListsByResultBestsellersDate(resultBestsellersDate: String): List<ListEntity> =
-        dao.selectListsByResultBestsellersDate(resultBestsellersDate).map { it.toDomain() }
+        withContext(Dispatchers.IO) { dao.selectListsByResultBestsellersDate(resultBestsellersDate).map { it.toDomain() } }
 
     suspend fun getBooksByListId(listId: String): List<BookEntity> =
-        dao.selectBooksByListId(listId).map { it.toDomain() }
+        withContext(Dispatchers.IO) { dao.selectBooksByListId(listId).map { it.toDomain() } }
 
     suspend fun getBookByIsbn(isbn: String): BookEntity? =
-        dao.selectBookByIsbn(isbn).toDomain()
+        withContext(Dispatchers.IO) {  dao.selectBookByIsbn(isbn)?.toDomain() }
 
-    suspend fun insertResult(result: ResultDbEntity) = dao.insertResult(result)
+    suspend fun insertResult(result: ResultDbEntity) = withContext(Dispatchers.IO) { dao.insertResult(result) }
 
-    suspend fun insertLists(lists: List<ListDbEntity>) = dao.insertLists(lists)
+    suspend fun insertLists(lists: List<ListDbEntity>) = withContext(Dispatchers.IO) { dao.insertLists(lists) }
 
-    suspend fun insertBooks(books: List<BookDbEntity>) = dao.insertBooks(books)
+    suspend fun insertBooks(books: List<BookDbEntity>) = withContext(Dispatchers.IO) { dao.insertBooks(books) }
 
-    suspend fun clearAll() = dao.clearAll()
+    suspend fun clearAll() = withContext(Dispatchers.IO) { dao.clearAll() }
 }
