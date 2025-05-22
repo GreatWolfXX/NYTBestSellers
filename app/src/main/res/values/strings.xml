@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NYT Best Sellers</string>
+
+    <string name="err_response">Error retrieving The New York Best Sellers list</string>
 </resources>

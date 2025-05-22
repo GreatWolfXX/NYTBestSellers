@@ -21,7 +21,7 @@ object NetworkModule {
     fun provideHttpClient(): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
-                json( Json { ignoreUnknownKeys = true } )
+                json(Json { ignoreUnknownKeys = true })
             }
             install(Logging) { level = LogLevel.ALL }
         }
