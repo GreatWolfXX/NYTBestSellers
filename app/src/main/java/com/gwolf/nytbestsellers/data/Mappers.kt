@@ -21,7 +21,7 @@ fun ListDto.toDbEntity(resultBestsellersDate: String) = ListDbEntity(
     displayName = this.displayName,
 )
 
-fun BookDto.toDbEntity(listId: String) = BookDbEntity(
+fun BookDto.toDbEntity(listId: Int) = BookDbEntity(
     listId = listId,
     title = this.title,
     description = this.description,

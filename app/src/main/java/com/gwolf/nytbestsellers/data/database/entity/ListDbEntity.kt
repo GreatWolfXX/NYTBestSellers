@@ -16,7 +16,7 @@ import com.gwolf.nytbestsellers.util.LISTS_TABLE_NAME
     )]
 )
 data class ListDbEntity(
-    @PrimaryKey @ColumnInfo("list_id") val listId: String,
+    @PrimaryKey @ColumnInfo("list_id") val listId: Int,
     @ColumnInfo("display_name") val displayName: String,
     @ColumnInfo("resultBestsellersDate") val resultBestsellersDate: String,
 )
