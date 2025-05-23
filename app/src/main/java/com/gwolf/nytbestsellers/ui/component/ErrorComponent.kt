@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gwolf.nytbestsellers.R
@@ -50,10 +51,13 @@ fun ErrorComponent(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Spacer(modifier = Modifier)
-        Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(
                 modifier = Modifier,
                 text = stringResource(id = R.string.title_error),
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
                 color = Color.Black
             )
@@ -61,6 +65,7 @@ fun ErrorComponent(
             Text(
                 modifier = Modifier,
                 text = errorDesc,
+                textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.Black
             )
