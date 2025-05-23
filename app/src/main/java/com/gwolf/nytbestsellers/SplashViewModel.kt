@@ -27,14 +27,14 @@ class SplashViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            checkSessionUseCase.invoke().collect { result ->
-                when (result) {
+            checkSessionUseCase.invoke().collect { response ->
+                when (response) {
                     is DataResult.Success -> {
                         _state.update { Screen.Lists }
                     }
 
                     is DataResult.Error -> {
-                        Timber.e("Session error: ${result.exception}")
+                        Timber.e("Session error: ${response.error}")
                         _state.update { Screen.Auth }
                     }
                 }
