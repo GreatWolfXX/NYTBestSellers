@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.gwolf.nytbestsellers.ui.screen.auth.AuthScreen
 
 @Composable
 fun SetupNavGraph(
@@ -25,7 +26,9 @@ fun SetupNavGraph(
         startDestination = startDestination
     ) {
         composable<Screen.Auth> {
-
+            AuthScreen(
+                navController = navController
+            )
         }
         composable<Screen.Lists> {
 
