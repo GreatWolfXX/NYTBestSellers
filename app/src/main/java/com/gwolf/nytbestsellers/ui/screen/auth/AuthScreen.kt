@@ -1,5 +1,6 @@
 package com.gwolf.nytbestsellers.ui.screen.auth
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -80,17 +81,19 @@ private fun AuthContent(
             .background(BackgroundColor),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (state.error != null) {
-            ErrorComponent(
-                error = state.error,
-                onClick = {
-
-                }
-            )
-        } else {
-            AuthMainSection(
-                onIntent = onIntent
-            )
+        Crossfade(targetState = state.error != null) { hasError ->
+            if (hasError) {
+                ErrorComponent(
+                    error = state.error,
+                    onClick = {
+                        onIntent(AuthIntent.Refresh)
+                    }
+                )
+            } else {
+                AuthMainSection(
+                    onIntent = onIntent
+                )
+            }
         }
     }
 }

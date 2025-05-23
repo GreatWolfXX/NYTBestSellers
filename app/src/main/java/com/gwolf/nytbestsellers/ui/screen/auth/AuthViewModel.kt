@@ -24,6 +24,7 @@ data class AuthScreenState(
 
 sealed class AuthIntent {
     data object Auth : AuthIntent()
+    data object Refresh : AuthIntent()
 }
 
 sealed class AuthEvent {
@@ -50,6 +51,10 @@ class AuthViewModel @Inject constructor(
         when (intent) {
             is AuthIntent.Auth -> {
                 signIn()
+            }
+
+            is AuthIntent.Refresh -> {
+                _state.update { it.copy(error = null) }
             }
         }
     }
