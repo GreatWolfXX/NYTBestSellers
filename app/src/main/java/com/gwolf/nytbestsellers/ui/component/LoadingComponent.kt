@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gwolf.nytbestsellers.ui.theme.BlackBackgroundAlpha02
 
 @Composable
 fun LoadingComponent(
@@ -34,7 +35,7 @@ fun LoadingComponent(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.Transparent),
+                .background(color = BlackBackgroundAlpha02),
             contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
