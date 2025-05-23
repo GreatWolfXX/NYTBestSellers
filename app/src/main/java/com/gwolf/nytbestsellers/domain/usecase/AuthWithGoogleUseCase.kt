@@ -1,5 +1,6 @@
 package com.gwolf.nytbestsellers.domain.usecase
 
+import androidx.credentials.exceptions.GetCredentialCancellationException
 import com.google.firebase.auth.FirebaseUser
 import com.gwolf.nytbestsellers.domain.repository.FirebaseRepository
 import com.gwolf.nytbestsellers.util.AppError
@@ -13,6 +14,14 @@ class AuthWithGoogleUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<DataResult<FirebaseUser?>> =
         firebaseRepository.signInWithGoogle().catch { exception ->
-            emit(DataResult.Error(AppError.Unexpected(exception)))
+            when (exception) {
+                is GetCredentialCancellationException -> {
+                    emit(DataResult.Error(AppError.Ignored))
+                }
+
+                else -> {
+                    emit(DataResult.Error(AppError.Unexpected(exception)))
+                }
+            }
         }
 }

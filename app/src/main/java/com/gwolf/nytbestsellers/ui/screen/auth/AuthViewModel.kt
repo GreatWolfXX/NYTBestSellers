@@ -64,8 +64,11 @@ class AuthViewModel @Inject constructor(
                     }
 
                     is DataResult.Error -> {
-                        Timber.e("Auth error: ${response.error}")
-                        _state.update { it.copy(error = response.error) }
+                        val error = response.error
+                        Timber.e("Auth error: $error")
+                        if (error != AppError.Ignored) {
+                            _state.update { it.copy(error = error) }
+                        }
                     }
                 }
             }
