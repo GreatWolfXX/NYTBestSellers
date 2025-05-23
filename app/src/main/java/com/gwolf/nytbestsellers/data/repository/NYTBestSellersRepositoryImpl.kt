@@ -19,7 +19,7 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
     override fun getResult(): Flow<ResultEntity?> = flow {
         val localResult = localStore.getResult()
 
-        if(localResult != null) {
+        if (localResult != null) {
             emit(localResult)
         }
 
@@ -50,5 +50,4 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
     override fun clearCachedData(): Flow<Unit> = flow {
         localStore.clearAll()
     }
-
 }

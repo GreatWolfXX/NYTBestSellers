@@ -2,4 +2,5 @@
     <string name="app_name">NYT Best Sellers</string>
 
     <string name="err_response">Error retrieving The New York Best Sellers list</string>
+    <string name="err_session_not_exist">User not logged in!</string>
 </resources>
