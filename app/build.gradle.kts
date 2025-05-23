@@ -28,10 +28,10 @@ android {
         properties.load(keystoreFile.inputStream())
 
         val nytBestSellersApi = properties.getProperty("NYT_BEST_SELLERS_API") ?: ""
-        val firebaseAuthApi = properties.getProperty("FIREBASE_AUTH_API") ?: ""
+        val firebaseAuthClientId = properties.getProperty("FIREBASE_AUTH_CLIENT_ID") ?: ""
 
         buildConfigField("String", "NYT_BEST_SELLERS_API", "\"$nytBestSellersApi\"")
-        buildConfigField("String", "FIREBASE_AUTH_API", "\"$firebaseAuthApi\"")
+        buildConfigField("String", "FIREBASE_AUTH_CLIENT_ID", "\"$firebaseAuthClientId\"")
     }
 
     buildTypes {
