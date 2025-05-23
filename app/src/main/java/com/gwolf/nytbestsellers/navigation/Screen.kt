@@ -15,9 +15,4 @@ sealed class Screen {
     data class Books(
         val listId: Int
     ) : Screen()
-
-    @Serializable
-    data class BookInfo(
-        val isbn: String
-    ) : Screen()
 }

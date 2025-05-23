@@ -9,6 +9,5 @@ interface NYTBestSellersRepository {
     fun getResult(): Flow<ResultEntity?>
     fun getListsByResultBestsellersDate(resultBestsellersDate: String): Flow<List<ListEntity>>
     fun getBooksByListId(listId: String): Flow<List<BookEntity>>
-    fun getBookByIsbn(isbn: String): Flow<BookEntity?>
     fun clearCachedData() : Flow<Unit>
 }
