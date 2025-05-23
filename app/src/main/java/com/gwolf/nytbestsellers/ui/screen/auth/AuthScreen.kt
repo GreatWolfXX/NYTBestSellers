@@ -51,7 +51,10 @@ fun AuthScreen(
         when (event) {
             is AuthEvent.Idle -> {}
             is AuthEvent.Navigate -> {
-                navController.navigate(Screen.Lists)
+                navController.navigate(Screen.Lists) {
+                    popUpTo<Screen.Auth> { inclusive = true }
+                    launchSingleTop = true
+                }
             }
         }
     }
