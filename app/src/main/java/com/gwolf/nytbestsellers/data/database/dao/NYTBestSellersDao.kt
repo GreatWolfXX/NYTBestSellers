@@ -20,9 +20,6 @@ interface NYTBestSellersDao {
     @Query("SELECT * FROM BooksTable WHERE list_id = :listId")
     suspend fun selectBooksByListId(listId: String): List<BookDbEntity>
 
-    @Query("SELECT * FROM BooksTable WHERE primary_isbn13 = :isbn")
-    suspend fun selectBookByIsbn(isbn: String): BookDbEntity?
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertResult(result: ResultDbEntity)
 

@@ -43,10 +43,6 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
         emit(localStore.getBooksByListId(listId))
     }
 
-    override fun getBookByIsbn(isbn: String): Flow<BookEntity?> = flow {
-        emit(localStore.getBookByIsbn(isbn))
-    }
-
     override fun clearCachedData(): Flow<Unit> = flow {
         localStore.clearAll()
     }
