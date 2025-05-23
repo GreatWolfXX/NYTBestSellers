@@ -26,7 +26,7 @@ import com.gwolf.nytbestsellers.util.AppError
 
 @Composable
 fun ErrorComponent(
-    error: AppError,
+    error: AppError?,
     onClick: () -> Unit
 ) {
     val errorDesc = when (error) {
