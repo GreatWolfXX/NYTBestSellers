@@ -2,7 +2,6 @@ package com.gwolf.nytbestsellers.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,8 +19,7 @@ fun SetupNavGraph(
 
     NavHost(
         modifier = Modifier
-            .background(Color.White)
-            .padding(innerPadding),
+            .background(Color.White),
         navController = navController,
         startDestination = startDestination
     ) {
