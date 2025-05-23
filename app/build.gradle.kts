@@ -19,7 +19,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "0.6.0"
+        versionName = "0.7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -28,8 +28,10 @@ android {
         properties.load(keystoreFile.inputStream())
 
         val nytBestSellersApi = properties.getProperty("NYT_BEST_SELLERS_API") ?: ""
+        val firebaseAuthClientId = properties.getProperty("FIREBASE_AUTH_CLIENT_ID") ?: ""
 
         buildConfigField("String", "NYT_BEST_SELLERS_API", "\"$nytBestSellersApi\"")
+        buildConfigField("String", "FIREBASE_AUTH_CLIENT_ID", "\"$firebaseAuthClientId\"")
     }
 
     buildTypes {

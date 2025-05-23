@@ -1,11 +1,14 @@
 package com.gwolf.nytbestsellers.di
 
+import android.content.Context
+import androidx.credentials.CredentialManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -36,4 +39,10 @@ object NetworkModule {
     fun provideFirebaseAuth(): FirebaseAuth {
         return Firebase.auth
     }
+
+    @Provides
+    @Singleton
+    fun provideCredentialManager(
+        @ApplicationContext context: Context
+    ): CredentialManager = CredentialManager.create(context)
 }

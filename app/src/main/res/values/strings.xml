@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">NYT Best Sellers</string>
 
+    <string name="sign_in">Sign In with Google</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_error">Sorry, an error occurred</string>
+
     <string name="err_response">Error retrieving The New York Best Sellers list</string>
     <string name="err_session_not_exist">User not logged in!</string>
+    <string name="err_unexpected">An unexpected error has occurred!</string>
 </resources>
