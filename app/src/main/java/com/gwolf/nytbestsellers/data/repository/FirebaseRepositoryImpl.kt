@@ -49,7 +49,7 @@ class FirebaseRepositoryImpl(
     private suspend fun getGoogleCredential(): Credential {
         val googleIdOption = GetGoogleIdOption.Builder()
             .setServerClientId(BuildConfig.FIREBASE_AUTH_CLIENT_ID)
-            .setFilterByAuthorizedAccounts(true)
+            .setFilterByAuthorizedAccounts(false)
             .build()
 
         val request = GetCredentialRequest.Builder()
