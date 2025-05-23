@@ -108,6 +108,9 @@ dependencies {
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
 
+    // SplashScreen
+    implementation(libs.splashscreen)
+
     // Timber
     implementation(libs.timber)
 }
