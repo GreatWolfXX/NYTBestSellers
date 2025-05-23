@@ -1,16 +1,12 @@
 package com.gwolf.nytbestsellers.data.repository.store
 
-import android.content.Context
 import com.gwolf.nytbestsellers.BuildConfig
-import com.gwolf.nytbestsellers.R
 import com.gwolf.nytbestsellers.data.dto.OverviewDto
 import com.gwolf.nytbestsellers.data.dto.ResultDto
 import com.gwolf.nytbestsellers.util.API_KEY_PARAM
-import com.gwolf.nytbestsellers.util.LocalizedText
 import com.gwolf.nytbestsellers.util.NYT_BEST_SELLERS_BASE_URL
 import com.gwolf.nytbestsellers.util.OVERVIEW_ENDPOINT
 import com.gwolf.nytbestsellers.util.SUCCESS_STATUS_CODE
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ResponseException
@@ -23,7 +19,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NYTBestSellersRestStore @Inject constructor(
-    @ApplicationContext private val context: Context,
     private val httpClient: HttpClient
 ) {
     suspend fun getOverview(): ResultDto {
@@ -37,10 +32,7 @@ class NYTBestSellersRestStore @Inject constructor(
         if (data.status == SUCCESS_STATUS_CODE) {
             return data.results
         } else {
-            throw ResponseException(
-                response,
-                LocalizedText.StringResource(R.string.err_response).asString(context)
-            )
+            throw ResponseException(response, response.status.description)
         }
     }
 }
