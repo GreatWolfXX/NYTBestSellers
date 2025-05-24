@@ -24,7 +24,7 @@ class NYTBestSellersLocalStore @Inject constructor(
     suspend fun getListsByResultBestsellersDate(resultBestsellersDate: String): List<ListEntity> =
         withContext(Dispatchers.IO) { dao.selectListsByResultBestsellersDate(resultBestsellersDate).map { it.toDomain() } }
 
-    suspend fun getBooksByListId(listId: String): List<BookEntity> =
+    suspend fun getBooksByListId(listId: Int): List<BookEntity> =
         withContext(Dispatchers.IO) { dao.selectBooksByListId(listId).map { it.toDomain() } }
 
     suspend fun insertResult(result: ResultDbEntity) = withContext(Dispatchers.IO) { dao.insertResult(result) }

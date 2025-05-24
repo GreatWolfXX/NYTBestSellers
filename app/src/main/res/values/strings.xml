@@ -6,6 +6,11 @@
     <string name="title_error">Sorry, an error occurred</string>
     <string name="title_list_categories">List categories</string>
     <string name="title_publication_date">Publication date: %s</string>
+    <string name="title_author">Author:</string>
+    <string name="title_publisher">Publisher:</string>
+    <string name="title_isbn13">Isbn13:</string>
+    <string name="title_rank">Rank:</string>
+    <string name="go_buy">Go to Buy</string>
 
     <string name="err_response">Error retrieving The New York Best Sellers list</string>
     <string name="err_session_not_exist">User not logged in!</string>

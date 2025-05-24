@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.gwolf.nytbestsellers.R
 import com.gwolf.nytbestsellers.domain.entity.ListEntity
+import com.gwolf.nytbestsellers.navigation.Screen
 import com.gwolf.nytbestsellers.ui.component.ErrorComponent
 import com.gwolf.nytbestsellers.ui.component.LoadingComponent
 import com.gwolf.nytbestsellers.ui.theme.BackgroundColor
@@ -46,10 +47,15 @@ fun ListsScreen(
     val event by viewModel.event.collectAsState(initial = ListsEvent.Idle)
 
     LaunchedEffect(event) {
-        when (event) {
+        when (val data: ListsEvent = event) {
             is ListsEvent.Idle -> {}
             is ListsEvent.Navigate -> {
-
+                navController.navigate(
+                    Screen.Books(
+                        listId = data.listId,
+                        listName = data.listName
+                    )
+                )
             }
         }
     }
@@ -124,7 +130,12 @@ private fun ListsMainSection(
                 ListItem(
                     item = list
                 ) {
-                    onIntent(ListsIntent.ItemClick(listId = list.listId))
+                    onIntent(
+                        ListsIntent.ItemClick(
+                            listId = list.listId,
+                            listName = list.displayName
+                        )
+                    )
                 }
             }
         }
