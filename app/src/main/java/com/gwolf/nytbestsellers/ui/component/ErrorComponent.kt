@@ -46,6 +46,11 @@ fun ErrorComponent(
             stringResource(R.string.err_unable_connect)
         }
 
+        is AppError.NoCredential -> {
+            stringResource(R.string.err_auth_failed)
+
+        }
+
         else -> {
             stringResource(R.string.err_unexpected)
         }
