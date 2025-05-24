@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import com.gwolf.nytbestsellers.data.database.entity.BookDbEntity
 import com.gwolf.nytbestsellers.data.database.entity.ListDbEntity
 import com.gwolf.nytbestsellers.data.database.entity.ResultDbEntity
@@ -31,17 +30,4 @@ interface NYTBestSellersDao {
 
     @Query("DELETE FROM ResultTable")
     suspend fun deleteResult()
-
-    @Query("DELETE FROM ListsTable")
-    suspend fun deleteLists()
-
-    @Query("DELETE FROM BooksTable")
-    suspend fun deleteBooks()
-
-    @Transaction
-    suspend fun clearAll() {
-        deleteBooks()
-        deleteLists()
-        deleteResult()
-    }
 }

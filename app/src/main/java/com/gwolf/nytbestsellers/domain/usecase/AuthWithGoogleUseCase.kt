@@ -1,6 +1,7 @@
 package com.gwolf.nytbestsellers.domain.usecase
 
 import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.NoCredentialException
 import com.google.firebase.auth.FirebaseUser
 import com.gwolf.nytbestsellers.domain.repository.FirebaseRepository
 import com.gwolf.nytbestsellers.util.AppError
@@ -17,6 +18,9 @@ class AuthWithGoogleUseCase @Inject constructor(
             when (exception) {
                 is GetCredentialCancellationException -> {
                     emit(DataResult.Error(AppError.Ignored))
+                }
+                is NoCredentialException -> {
+                    emit(DataResult.Error(AppError.NoCredential))
                 }
 
                 else -> {

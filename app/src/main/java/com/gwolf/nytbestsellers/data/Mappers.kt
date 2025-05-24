@@ -10,9 +10,10 @@ import com.gwolf.nytbestsellers.domain.entity.BookEntity
 import com.gwolf.nytbestsellers.domain.entity.ListEntity
 import com.gwolf.nytbestsellers.domain.entity.ResultEntity
 
-fun ResultDto.toDbEntity() = ResultDbEntity(
+fun ResultDto.toDbEntity(lastUpdateDate: String) = ResultDbEntity(
     bestsellersDate = this.bestsellersDate,
     publishedDate = this.publishedDate,
+    lastUpdateDate = lastUpdateDate
 )
 
 fun ListDto.toDbEntity(resultBestsellersDate: String) = ListDbEntity(
@@ -36,6 +37,7 @@ fun BookDto.toDbEntity(listId: Int) = BookDbEntity(
 fun ResultDbEntity.toDomain() = ResultEntity(
     bestsellersDate = this.bestsellersDate,
     publishedDate = this.publishedDate,
+    lastUpdateDate = lastUpdateDate
 )
 
 fun ListDbEntity.toDomain() = ListEntity(

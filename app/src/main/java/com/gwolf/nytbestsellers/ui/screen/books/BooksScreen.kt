@@ -161,7 +161,7 @@ private fun Title(
                 .fillMaxWidth(),
             text = state.listName,
             style = MaterialTheme.typography.titleLarge,
-            color = Color.Black
+            color = Color.White
         )
     }
 }

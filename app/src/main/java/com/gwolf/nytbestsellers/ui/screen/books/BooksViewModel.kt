@@ -14,7 +14,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -47,9 +46,6 @@ class BooksViewModel @Inject constructor(
 
     private var _state = MutableStateFlow(BooksScreenState())
     val state: StateFlow<BooksScreenState> = _state
-        .onStart {
-            getData(savedStateHandle)
-        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -75,7 +71,10 @@ class BooksViewModel @Inject constructor(
 
     private suspend fun getData(savedStateHandle: SavedStateHandle) {
         val parameters = savedStateHandle.toRoute<Screen.Books>()
-        _state.update { it.copy(listName = parameters.listName) }
+        _state.update { it.copy(
+            listName = parameters.listName,
+            isLoading = true
+        ) }
 
         getBooksUseCase.invoke(parameters.listId).collect { response ->
             when (response) {
@@ -92,6 +91,13 @@ class BooksViewModel @Inject constructor(
                     }
                 }
             }
+        }
+        _state.update { it.copy(isLoading = false) }
+    }
+
+    init {
+        viewModelScope.launch {
+            getData(savedStateHandle)
         }
     }
 }
