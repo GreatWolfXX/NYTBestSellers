@@ -12,4 +12,6 @@ data class ResultDbEntity(
     val bestsellersDate: String,
     @ColumnInfo("published_date")
     val publishedDate: String,
+    @ColumnInfo("last_update_date")
+    val lastUpdateDate: String,
 )

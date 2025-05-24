@@ -7,6 +7,7 @@ import com.gwolf.nytbestsellers.domain.entity.BookEntity
 import com.gwolf.nytbestsellers.domain.entity.ListEntity
 import com.gwolf.nytbestsellers.domain.entity.ResultEntity
 import com.gwolf.nytbestsellers.domain.repository.NYTBestSellersRepository
+import com.gwolf.nytbestsellers.util.DateUtils
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -19,18 +20,20 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
     override fun getResult(): Flow<ResultEntity?> = flow {
         val localResult = localStore.getResult()
 
-        if (localResult != null) {
-            emit(localResult)
-            return@flow
-        }
+        val shouldUpdate =
+            localResult?.lastUpdateDate?.let { DateUtils.shouldUpdateData(it) } ?: true
 
-        val restResult = restStore.getOverview()
-        val restLists = restResult.lists
-        val lists = restLists.map { it.toDbEntity(restResult.bestsellersDate) }
-        val books = restLists.flatMap { list -> list.books.map { it.toDbEntity(list.listId) } }
-        localStore.insertResult(restResult.toDbEntity())
-        localStore.insertLists(lists)
-        localStore.insertBooks(books)
+        if (shouldUpdate) {
+            localStore.clearAll()
+
+            val restResult = restStore.getOverview()
+            val restLists = restResult.lists
+            val lists = restLists.map { it.toDbEntity(restResult.bestsellersDate) }
+            val books = restLists.flatMap { list -> list.books.map { it.toDbEntity(list.listId) } }
+            localStore.insertResult(restResult.toDbEntity(DateUtils.getCurrentDateNY()))
+            localStore.insertLists(lists)
+            localStore.insertBooks(books)
+        }
 
         emit(localStore.getResult())
     }
