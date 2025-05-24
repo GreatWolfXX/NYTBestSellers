@@ -19,7 +19,7 @@ android {
         minSdk = 24
         targetSdk = 35
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -28,8 +28,10 @@ android {
         properties.load(keystoreFile.inputStream())
 
         val nytBestSellersApi = properties.getProperty("NYT_BEST_SELLERS_API") ?: ""
+        val firebaseAuthClientId = properties.getProperty("FIREBASE_AUTH_CLIENT_ID") ?: ""
 
         buildConfigField("String", "NYT_BEST_SELLERS_API", "\"$nytBestSellersApi\"")
+        buildConfigField("String", "FIREBASE_AUTH_CLIENT_ID", "\"$firebaseAuthClientId\"")
     }
 
     buildTypes {
@@ -42,6 +44,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -71,6 +74,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Core Library Desugar
+    coreLibraryDesugaring(libs.desugar.library)
 
     // Navigation
     implementation(libs.navigation.compose)
@@ -107,6 +113,9 @@ dependencies {
     implementation(libs.room)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    // SplashScreen
+    implementation(libs.splashscreen)
 
     // Timber
     implementation(libs.timber)

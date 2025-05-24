@@ -2,4 +2,12 @@
 <resources>
 
     <style name="Theme.NYTBestSellers" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bg_splashscreen</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splashscreen_ic</item>
+        <item name="postSplashScreenTheme">@style/Theme.NYTBestSellers</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>

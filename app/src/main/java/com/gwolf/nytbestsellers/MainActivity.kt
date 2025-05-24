@@ -5,43 +5,56 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.rememberNavController
+import com.gwolf.nytbestsellers.navigation.SetupNavGraph
 import com.gwolf.nytbestsellers.ui.theme.NYTBestSellersTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var splashViewModel: SplashViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var keepSplashOnScreen = true
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { keepSplashOnScreen }
+        }
         enableEdgeToEdge()
+
         setContent {
+            val screen by splashViewModel.state.collectAsState()
+            val navController = rememberNavController()
+
+            LaunchedEffect(screen) {
+                if (screen != null) {
+                    keepSplashOnScreen = false
+                }
+            }
+
             NYTBestSellersTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) { innerPadding ->
+                    screen?.let {
+                        SetupNavGraph(
+                            navController = navController,
+                            startDestination = it,
+                            innerPadding = innerPadding
+                        )
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NYTBestSellersTheme {
-        Greeting("Android")
     }
 }
