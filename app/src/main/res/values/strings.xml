@@ -4,8 +4,12 @@
     <string name="sign_in">Sign In with Google</string>
     <string name="refresh">Refresh</string>
     <string name="title_error">Sorry, an error occurred</string>
+    <string name="title_list_categories">List categories</string>
+    <string name="title_publication_date">Publication date: %s</string>
 
     <string name="err_response">Error retrieving The New York Best Sellers list</string>
     <string name="err_session_not_exist">User not logged in!</string>
     <string name="err_unexpected">An unexpected error has occurred!</string>
+    <string name="err_failed_retrieve_data">We were unable to obtain data on The New York Best Sellers. Please try again.</string>
+    <string name="err_unable_connect">Unable to connect to the host. Please check your internet connection!</string>
 </resources>
