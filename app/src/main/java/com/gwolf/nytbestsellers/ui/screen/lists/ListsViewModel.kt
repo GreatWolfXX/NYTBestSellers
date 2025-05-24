@@ -13,7 +13,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -46,9 +45,6 @@ class ListsViewModel @Inject constructor(
 
     private var _state = MutableStateFlow(ListsScreenState())
     val state: StateFlow<ListsScreenState> = _state
-        .onStart {
-            getData()
-        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
@@ -109,6 +105,12 @@ class ListsViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    init {
+        viewModelScope.launch {
+            getData()
         }
     }
 }
