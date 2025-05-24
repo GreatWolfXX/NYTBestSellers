@@ -29,13 +29,13 @@ data class ListsScreenState(
 )
 
 sealed class ListsIntent {
-    data class ItemClick(val listId: Int) : ListsIntent()
+    data class ItemClick(val listId: Int, val listName: String) : ListsIntent()
     data object Refresh : ListsIntent()
 }
 
 sealed class ListsEvent {
     data object Idle : ListsEvent()
-    data class Navigate(val listId: Int) : ListsEvent()
+    data class Navigate(val listId: Int, val listName: String) : ListsEvent()
 }
 
 @HiltViewModel
@@ -62,7 +62,7 @@ class ListsViewModel @Inject constructor(
         when (intent) {
             is ListsIntent.ItemClick -> {
                 viewModelScope.launch {
-                    _event.send(ListsEvent.Navigate(intent.listId))
+                    _event.send(ListsEvent.Navigate(intent.listId, intent.listName))
                 }
             }
 

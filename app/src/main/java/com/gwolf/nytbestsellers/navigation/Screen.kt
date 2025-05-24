@@ -13,6 +13,7 @@ sealed class Screen {
 
     @Serializable
     data class Books(
-        val listId: Int
+        val listId: Int,
+        val listName: String
     ) : Screen()
 }
