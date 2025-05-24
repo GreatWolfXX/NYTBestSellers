@@ -10,8 +10,8 @@ import com.gwolf.nytbestsellers.util.SUCCESS_STATUS_CODE
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ResponseException
+import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.request.post
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +23,7 @@ class NYTBestSellersRestStore @Inject constructor(
 ) {
     suspend fun getOverview(): ResultDto {
         val response = withContext(Dispatchers.IO) {
-            httpClient.post(NYT_BEST_SELLERS_BASE_URL + OVERVIEW_ENDPOINT) {
+            httpClient.get(NYT_BEST_SELLERS_BASE_URL + OVERVIEW_ENDPOINT) {
                 contentType(ContentType.Application.Json)
                 parameter(API_KEY_PARAM, BuildConfig.NYT_BEST_SELLERS_API)
             }

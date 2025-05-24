@@ -21,6 +21,7 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
 
         if (localResult != null) {
             emit(localResult)
+            return@flow
         }
 
         val restResult = restStore.getOverview()
