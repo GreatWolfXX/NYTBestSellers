@@ -18,7 +18,7 @@ interface NYTBestSellersDao {
     suspend fun selectListsByResultBestsellersDate(resultBestsellersDate: String): List<ListDbEntity>
 
     @Query("SELECT * FROM BooksTable WHERE list_id = :listId")
-    suspend fun selectBooksByListId(listId: String): List<BookDbEntity>
+    suspend fun selectBooksByListId(listId: Int): List<BookDbEntity>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertResult(result: ResultDbEntity)
