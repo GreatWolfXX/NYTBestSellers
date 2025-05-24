@@ -40,7 +40,7 @@ class NYTBestSellersRepositoryImpl @Inject constructor(
         emit(localStore.getListsByResultBestsellersDate(resultBestsellersDate))
     }
 
-    override fun getBooksByListId(listId: String): Flow<List<BookEntity>> = flow {
+    override fun getBooksByListId(listId: Int): Flow<List<BookEntity>> = flow {
         emit(localStore.getBooksByListId(listId))
     }
 

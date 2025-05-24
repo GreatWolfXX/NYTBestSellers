@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface NYTBestSellersRepository {
     fun getResult(): Flow<ResultEntity?>
     fun getListsByResultBestsellersDate(resultBestsellersDate: String): Flow<List<ListEntity>>
-    fun getBooksByListId(listId: String): Flow<List<BookEntity>>
+    fun getBooksByListId(listId: Int): Flow<List<BookEntity>>
     fun clearCachedData() : Flow<Unit>
 }
