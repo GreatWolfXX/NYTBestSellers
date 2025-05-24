@@ -18,11 +18,11 @@ class CheckSessionUseCase @Inject constructor(
             if (currentUser != null) {
                 emit(DataResult.Success(currentUser))
             } else {
-                emit(DataResult.Error(error = AppError.SessionNotExist))
+                emit(DataResult.Error(AppError.SessionNotExist))
             }
         } catch (e: Exception) {
             emit(
-                DataResult.Error(error = AppError.Unexpected(e))
+                DataResult.Error(AppError.Unexpected(e))
             )
         }
     }

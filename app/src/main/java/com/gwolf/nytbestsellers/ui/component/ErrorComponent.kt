@@ -38,6 +38,14 @@ fun ErrorComponent(
             stringResource(R.string.err_unexpected)
         }
 
+        is AppError.FailedRetrieveData -> {
+            stringResource(R.string.err_failed_retrieve_data)
+        }
+
+        is AppError.UnknownHostException -> {
+            stringResource(R.string.err_unable_connect)
+        }
+
         else -> {
             stringResource(R.string.err_unexpected)
         }
