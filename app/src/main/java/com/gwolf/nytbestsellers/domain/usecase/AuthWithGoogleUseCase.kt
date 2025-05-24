@@ -20,7 +20,7 @@ class AuthWithGoogleUseCase @Inject constructor(
                     emit(DataResult.Error(AppError.Ignored))
                 }
                 is NoCredentialException -> {
-                    emit(DataResult.Error(AppError.FailedRetrieveData))
+                    emit(DataResult.Error(AppError.NoCredential))
                 }
 
                 else -> {
