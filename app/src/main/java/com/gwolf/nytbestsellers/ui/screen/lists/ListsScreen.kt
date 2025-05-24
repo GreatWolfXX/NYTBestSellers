@@ -156,7 +156,7 @@ private fun Title(
                 .fillMaxWidth(),
             text = stringResource(R.string.title_list_categories),
             style = MaterialTheme.typography.titleLarge,
-            color = Color.Black
+            color = Color.White
         )
         Spacer(modifier = Modifier.size(8.dp))
         Text(
@@ -166,7 +166,7 @@ private fun Title(
                 state.result?.publishedDate.orEmpty()
             ),
             style = MaterialTheme.typography.titleMedium,
-            color = Color.Black
+            color = Color.White
         )
     }
 }

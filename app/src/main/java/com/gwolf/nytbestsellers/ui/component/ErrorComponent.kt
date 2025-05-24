@@ -72,7 +72,7 @@ fun ErrorComponent(
                 text = stringResource(id = R.string.title_error),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.size(8.dp))
             Text(
@@ -80,7 +80,7 @@ fun ErrorComponent(
                 text = errorDesc,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
-                color = Color.Black
+                color = Color.White
             )
             Spacer(modifier = Modifier.size(16.dp))
         }
