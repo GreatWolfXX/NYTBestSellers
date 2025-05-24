@@ -33,5 +33,5 @@ class NYTBestSellersLocalStore @Inject constructor(
 
     suspend fun insertBooks(books: List<BookDbEntity>) = withContext(Dispatchers.IO) { dao.insertBooks(books) }
 
-    suspend fun clearAll() = withContext(Dispatchers.IO) { dao.clearAll() }
+    suspend fun clearAll() = withContext(Dispatchers.IO) { dao.deleteResult() }
 }
