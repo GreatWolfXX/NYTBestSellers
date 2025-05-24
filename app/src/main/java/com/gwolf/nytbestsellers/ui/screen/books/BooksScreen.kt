@@ -42,26 +42,30 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.gwolf.nytbestsellers.R
 import com.gwolf.nytbestsellers.domain.entity.BookEntity
+import com.gwolf.nytbestsellers.navigation.Screen
 import com.gwolf.nytbestsellers.ui.component.ErrorComponent
 import com.gwolf.nytbestsellers.ui.component.LoadingComponent
 import com.gwolf.nytbestsellers.ui.theme.BackgroundColor
 
 @Composable
 fun BooksScreen(
+    navController: NavController,
     innerPadding: PaddingValues,
     viewModel: BooksViewModel = hiltViewModel()
 ) {
+
     val state by viewModel.state.collectAsState()
     val event by viewModel.event.collectAsState(initial = BooksEvent.Idle)
 
     LaunchedEffect(event) {
-        when (event) {
+        when (val data: BooksEvent = event) {
             is BooksEvent.Idle -> {}
             is BooksEvent.OpenLink -> {
-
+                navController.navigate(Screen.WebView(data.uri))
             }
         }
     }

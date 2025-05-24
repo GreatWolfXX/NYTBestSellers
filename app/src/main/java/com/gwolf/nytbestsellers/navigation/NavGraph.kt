@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import com.gwolf.nytbestsellers.ui.screen.auth.AuthScreen
 import com.gwolf.nytbestsellers.ui.screen.books.BooksScreen
 import com.gwolf.nytbestsellers.ui.screen.lists.ListsScreen
+import com.gwolf.nytbestsellers.ui.screen.webview.WebViewScreen
 
 @Composable
 fun SetupNavGraph(
@@ -38,7 +39,13 @@ fun SetupNavGraph(
         }
         composable<Screen.Books> {
             BooksScreen(
+                navController = navController,
                 innerPadding = innerPadding
+            )
+        }
+        composable<Screen.WebView> {
+            WebViewScreen(
+                navController = navController
             )
         }
     }

@@ -16,4 +16,9 @@ sealed class Screen {
         val listId: Int,
         val listName: String
     ) : Screen()
+
+    @Serializable
+    data class WebView(
+        val uri: String
+    ) : Screen()
 }
