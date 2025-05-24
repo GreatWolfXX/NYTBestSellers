@@ -77,6 +77,7 @@ class BooksViewModel @Inject constructor(
         val parameters = savedStateHandle.toRoute<Screen.Books>()
         _state.update { it.copy(listName = parameters.listName) }
 
+        _state.update { it.copy(isLoading = true) }
         getBooksUseCase.invoke(parameters.listId).collect { response ->
             when (response) {
                 is DataResult.Success -> {
@@ -93,5 +94,6 @@ class BooksViewModel @Inject constructor(
                 }
             }
         }
+        _state.update { it.copy(isLoading = false) }
     }
 }

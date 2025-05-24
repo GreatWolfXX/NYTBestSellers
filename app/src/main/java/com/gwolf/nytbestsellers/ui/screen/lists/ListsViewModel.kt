@@ -73,6 +73,7 @@ class ListsViewModel @Inject constructor(
     }
 
     private suspend fun getData() {
+        _state.update { it.copy(isLoading = true) }
         getResultUseCase.invoke().collect { response ->
             when (response) {
                 is DataResult.Success -> {
@@ -90,6 +91,7 @@ class ListsViewModel @Inject constructor(
                 }
             }
         }
+        _state.update { it.copy(isLoading = false) }
     }
 
     private suspend fun getLists(resultBestsellersDate: String) {
