@@ -48,9 +48,7 @@ class BooksViewModel @Inject constructor(
     private var _state = MutableStateFlow(BooksScreenState())
     val state: StateFlow<BooksScreenState> = _state
         .onStart {
-            val parameters = savedStateHandle.toRoute<Screen.Books>()
-            _state.update { it.copy(listName = parameters.listName) }
-            getData(parameters.listId)
+            getData(savedStateHandle)
         }
         .stateIn(
             scope = viewModelScope,
@@ -75,8 +73,11 @@ class BooksViewModel @Inject constructor(
         }
     }
 
-    private suspend fun getData(listId: Int) {
-        getBooksUseCase.invoke(listId).collect { response ->
+    private suspend fun getData(savedStateHandle: SavedStateHandle) {
+        val parameters = savedStateHandle.toRoute<Screen.Books>()
+        _state.update { it.copy(listName = parameters.listName) }
+
+        getBooksUseCase.invoke(parameters.listId).collect { response ->
             when (response) {
                 is DataResult.Success -> {
                     val data = response.data
