@@ -166,7 +166,7 @@ private fun GoogleButtonPreview() {
 
 @Preview
 @Composable
-private fun CartScreenPreview() {
+private fun AuthScreenPreview() {
     AuthContent(
         state = AuthScreenState()
     )
